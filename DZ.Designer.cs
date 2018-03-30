@@ -32,7 +32,7 @@
             this.Timer1 = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.TextBox1 = new System.Windows.Forms.RichTextBox();
+            this.textBox1 = new System.Windows.Forms.RichTextBox();
             this.TextBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -52,7 +52,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Location = new System.Drawing.Point(12, 13);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -62,10 +62,10 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.TextBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
             this.splitContainer1.Panel2.Controls.Add(this.TextBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(219, 191);
-            this.splitContainer1.SplitterDistance = 73;
+            this.splitContainer1.Size = new System.Drawing.Size(260, 204);
+            this.splitContainer1.SplitterDistance = 77;
             this.splitContainer1.SplitterWidth = 18;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -76,20 +76,20 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(0, 0);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(217, 71);
+            this.listBox1.Size = new System.Drawing.Size(258, 75);
             this.listBox1.TabIndex = 0;
             // 
-            // TextBox1
+            // textBox1
             // 
-            this.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextBox1.Location = new System.Drawing.Point(0, 0);
-            this.TextBox1.Name = "TextBox1";
-            this.TextBox1.Size = new System.Drawing.Size(217, 98);
-            this.TextBox1.TabIndex = 3;
-            this.TextBox1.Text = "";
-            this.TextBox1.DoubleClick += new System.EventHandler(this.TextBox1_DoubleClick);
-            this.TextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox1_KeyPress);
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(0, 0);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(258, 107);
+            this.textBox1.TabIndex = 3;
+            this.textBox1.Text = "";
+            this.textBox1.DoubleClick += new System.EventHandler(this.TextBox1_DoubleClick);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox1_KeyPress);
             // 
             // TextBox2
             // 
@@ -106,10 +106,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(219, 191);
+            this.ClientSize = new System.Drawing.Size(284, 229);
             this.Controls.Add(this.splitContainer1);
             this.Name = "DZ";
             this.Text = "DZ";
+            this.TransparencyKey = System.Drawing.Color.GhostWhite;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DZ_FormClosing);
+            this.Load += new System.EventHandler(this.DZ_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
@@ -124,7 +127,7 @@
         private System.Windows.Forms.Timer Timer1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.RichTextBox TextBox1;
+        private System.Windows.Forms.RichTextBox textBox1;
         private System.Windows.Forms.TextBox TextBox2;
     }
 }

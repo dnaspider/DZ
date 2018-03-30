@@ -110,7 +110,8 @@ namespace csWindowsFormsApp1.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" />")]
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>test</string>\r\n</ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection SettingDB {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["SettingDB"]));
@@ -129,6 +130,234 @@ namespace csWindowsFormsApp1.Properties {
             }
             set {
                 this["SettingSpecialKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SettingSettingIcon {
+            get {
+                return ((string)(this["SettingSettingIcon"]));
+            }
+            set {
+                this["SettingSettingIcon"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SettingWordWrap {
+            get {
+                return ((bool)(this["SettingWordWrap"]));
+            }
+            set {
+                this["SettingWordWrap"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.9")]
+        public double SettingOpacity {
+            get {
+                return ((double)(this["SettingOpacity"]));
+            }
+            set {
+                this["SettingOpacity"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SettingTopMost {
+            get {
+                return ((bool)(this["SettingTopMost"]));
+            }
+            set {
+                this["SettingTopMost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("118")]
+        public int SettingLocationTop {
+            get {
+                return ((int)(this["SettingLocationTop"]));
+            }
+            set {
+                this["SettingLocationTop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("78")]
+        public int SettingLocationLeft {
+            get {
+                return ((int)(this["SettingLocationLeft"]));
+            }
+            set {
+                this["SettingLocationLeft"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("268")]
+        public int SettingHeight {
+            get {
+                return ((int)(this["SettingHeight"]));
+            }
+            set {
+                this["SettingHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("300")]
+        public int SettingWidth {
+            get {
+                return ((int)(this["SettingWidth"]));
+            }
+            set {
+                this["SettingWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public int SettingListboxSelectedIndex {
+            get {
+                return ((int)(this["SettingListboxSelectedIndex"]));
+            }
+            set {
+                this["SettingListboxSelectedIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8.25")]
+        public float SettingListBoxFontSize {
+            get {
+                return ((float)(this["SettingListBoxFontSize"]));
+            }
+            set {
+                this["SettingListBoxFontSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SettingTabIndex {
+            get {
+                return ((int)(this["SettingTabIndex"]));
+            }
+            set {
+                this["SettingTabIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SettingTextBox {
+            get {
+                return ((string)(this["SettingTextBox"]));
+            }
+            set {
+                this["SettingTextBox"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SettingSelectionStart {
+            get {
+                return ((int)(this["SettingSelectionStart"]));
+            }
+            set {
+                this["SettingSelectionStart"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SettingSelectionLength {
+            get {
+                return ((int)(this["SettingSelectionLength"]));
+            }
+            set {
+                this["SettingSelectionLength"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public float SettingTextBoxZoomFactor {
+            get {
+                return ((float)(this["SettingTextBoxZoomFactor"]));
+            }
+            set {
+                this["SettingTextBoxZoomFactor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("95")]
+        public int SettingSplitterDistance {
+            get {
+                return ((int)(this["SettingSplitterDistance"]));
+            }
+            set {
+                this["SettingSplitterDistance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int SettingSplitterWidth {
+            get {
+                return ((int)(this["SettingSplitterWidth"]));
+            }
+            set {
+                this["SettingSplitterWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SettingBackgroundImage {
+            get {
+                return ((string)(this["SettingBackgroundImage"]));
+            }
+            set {
+                this["SettingBackgroundImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SettingIcon {
+            get {
+                return ((string)(this["SettingIcon"]));
+            }
+            set {
+                this["SettingIcon"] = value;
             }
         }
     }
