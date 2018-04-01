@@ -1,14 +1,14 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="csWindowsFormsApp1.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="dz.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="SettingDarkMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="SettingOpenBracket" Type="System.String" Scope="User">
+    <Setting Name="SettingBracketOpen" Type="System.String" Scope="User">
       <Value Profile="(Default)">«</Value>
     </Setting>
-    <Setting Name="SettingCloseBracket" Type="System.String" Scope="User">
+    <Setting Name="SettingBracketClose" Type="System.String" Scope="User">
       <Value Profile="(Default)">»</Value>
     </Setting>
     <Setting Name="SettingCodeLength" Type="System.Int32" Scope="User">
@@ -31,9 +31,6 @@
     </Setting>
     <Setting Name="SettingSpecialKey" Type="System.Windows.Forms.Keys" Scope="User">
       <Value Profile="(Default)">RControlKey</Value>
-    </Setting>
-    <Setting Name="SettingSettingIcon" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SettingWordWrap" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -88,6 +85,27 @@
     </Setting>
     <Setting Name="SettingIcon" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SettingSendkeysOnlyMode" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SettingIgnoreWhiteSpaceOpen" Type="System.String" Scope="User">
+      <Value Profile="(Default)">‹</Value>
+    </Setting>
+    <Setting Name="SettingIgnoreWhiteSpaceClose" Type="System.String" Scope="User">
+      <Value Profile="(Default)">›</Value>
+    </Setting>
+    <Setting Name="SettingInsertSymbol" Type="System.String" Scope="User">
+      <Value Profile="(Default)">į</Value>
+    </Setting>
+    <Setting Name="SettingInfiniteLoop" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SettingBracketModeOnlyScan" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SettingFirstLoad" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

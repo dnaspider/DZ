@@ -1,4 +1,4 @@
-﻿namespace csWindowsFormsApp1.Properties {
+﻿namespace dz.Properties {
     
     
     // This class allows you to handle specific events on the settings class:

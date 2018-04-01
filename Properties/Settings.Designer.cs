@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace csWindowsFormsApp1.Properties {
+namespace dz.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -38,24 +38,24 @@ namespace csWindowsFormsApp1.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("«")]
-        public string SettingOpenBracket {
+        public string SettingBracketOpen {
             get {
-                return ((string)(this["SettingOpenBracket"]));
+                return ((string)(this["SettingBracketOpen"]));
             }
             set {
-                this["SettingOpenBracket"] = value;
+                this["SettingBracketOpen"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("»")]
-        public string SettingCloseBracket {
+        public string SettingBracketClose {
             get {
-                return ((string)(this["SettingCloseBracket"]));
+                return ((string)(this["SettingBracketClose"]));
             }
             set {
-                this["SettingCloseBracket"] = value;
+                this["SettingBracketClose"] = value;
             }
         }
         
@@ -130,18 +130,6 @@ namespace csWindowsFormsApp1.Properties {
             }
             set {
                 this["SettingSpecialKey"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SettingSettingIcon {
-            get {
-                return ((string)(this["SettingSettingIcon"]));
-            }
-            set {
-                this["SettingSettingIcon"] = value;
             }
         }
         
@@ -358,6 +346,90 @@ namespace csWindowsFormsApp1.Properties {
             }
             set {
                 this["SettingIcon"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SettingSendkeysOnlyMode {
+            get {
+                return ((bool)(this["SettingSendkeysOnlyMode"]));
+            }
+            set {
+                this["SettingSendkeysOnlyMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("‹")]
+        public string SettingIgnoreWhiteSpaceOpen {
+            get {
+                return ((string)(this["SettingIgnoreWhiteSpaceOpen"]));
+            }
+            set {
+                this["SettingIgnoreWhiteSpaceOpen"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("›")]
+        public string SettingIgnoreWhiteSpaceClose {
+            get {
+                return ((string)(this["SettingIgnoreWhiteSpaceClose"]));
+            }
+            set {
+                this["SettingIgnoreWhiteSpaceClose"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("į")]
+        public string SettingInsertSymbol {
+            get {
+                return ((string)(this["SettingInsertSymbol"]));
+            }
+            set {
+                this["SettingInsertSymbol"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SettingInfiniteLoop {
+            get {
+                return ((bool)(this["SettingInfiniteLoop"]));
+            }
+            set {
+                this["SettingInfiniteLoop"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SettingBracketModeOnlyScan {
+            get {
+                return ((bool)(this["SettingBracketModeOnlyScan"]));
+            }
+            set {
+                this["SettingBracketModeOnlyScan"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SettingFirstLoad {
+            get {
+                return ((int)(this["SettingFirstLoad"]));
+            }
+            set {
+                this["SettingFirstLoad"] = value;
             }
         }
     }
