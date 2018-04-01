@@ -956,7 +956,7 @@ namespace dz
                             for (int i = 0; i < ar.Count; i++) {
                                 if (GetAsyncKeyState(Keys.Escape)) { break; }
                                 if (ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1).Contains(middle)) {
-                                    g_i = ar[i].ToString().IndexOf(":");
+                                    g_i = Convert.ToInt32(ar[i].ToString().Substring(0, ar[i].ToString().IndexOf(":")));
                                     g_s = ListBox1.Items[g_i].ToString().Substring(ListBox1.Items[g_i].ToString().IndexOf(_p) + 1, ListBox1.Items[g_i].ToString().Length - ListBox1.Items[g_i].ToString().IndexOf(_p) - 1) + g_s;
                                     //Console.WriteLine("connect: " + ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1));
                                     if (Properties.Settings.Default.SettingInfiniteLoop == false) {
