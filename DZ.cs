@@ -574,416 +574,434 @@ namespace dz
                 case ".":
                     Key(Keys.OemPeriod, false, 1);
                     break;
-                case "‹"://ws_:
-                    g_ignoreWhiteSpace = true;
-                    break;
-                case "›"://_ws:
-                    g_ignoreWhiteSpace = false;
-                    break;
 
 
-                case "«"://p_
-                    //Console.WriteLine("indexof «:" + g_s.IndexOf(p_) + 1);
-                    //Console.WriteLine("indexof »:" + g_s.IndexOf(_p) +- 2); ///
 
-                    string middle = g_s.Substring(g_s.IndexOf(p_) + 1, g_s.IndexOf(_p) + 1 - g_s.IndexOf(p_) - 2);//grab middle value
-                    //Console.WriteLine("middle: " + middle);
-
-                    if (middle.Contains(":")) {//grab x:#
-                        g_n = middle.Substring(middle.IndexOf(":") + 1);
-                        middle = middle.Substring(middle.IndexOf(p_) + 1, middle.IndexOf(":"));
-                    }
-                    if (middle.Contains("*")) {//grab x*#
-                        g_presses = Convert.ToInt32(middle.Substring(middle.IndexOf("*") + 1));
-                        middle = middle.Substring(middle.IndexOf(p_) + 1, middle.IndexOf("*"));
-                        //Console.WriteLine("middle: " + middle);
-                        //Console.WriteLine("g_presses: " + g_presses);
-                    }
-
-                    g_s = g_s.Substring(g_s.IndexOf(_p) + 1);//make new string
-                    //Console.WriteLine("new string: " + g_s.IndexOf(_p) + 1);
-
-
-                    switch (middle)
-                    {
-                        case "x":
-                            SetCursorPos(Convert.ToInt32(g_n) + Cursor.Position.X, Cursor.Position.Y);
-                            break;
-                        case "y":
-                            SetCursorPos(Cursor.Position.X, Convert.ToInt32(g_n) + Cursor.Position.Y);
-                            break;
-                        case "date":
-                            string d = (DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString() + "/" + DateTime.Now.Year.ToString());
-                            if (g_n != "0") {
-                                d = (DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString() + "/" + DateTime.Now.Year.ToString());
-                                d = d.Replace("/", g_n);
-                            }
-                            if (middle == "Date") {
-                                SendKeys.Send(d);
-                            } else {
-                                Clipboard.SetText(d);
-                            }
-                            break;
-                        case "time":
-                            string h = DateTime.Now.Hour.ToString();
-                            int hh = Convert.ToInt32(h);
-                            string m = "AM";
-                            if (Convert.ToInt32(h) == 0) { hh += 12; } else if (Convert.ToInt32(h) > 12) { m = "PM"; hh -= 12; }
-                            string t = hh + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString() + ":" + m;
-                            if (g_n != "0") { t = t.Replace(":", g_n); }
-                            Clipboard.SetText(t);
-                            if (middle == "Time") {
-                                SendKeys.Send(t);
-                            } else {
-                                Clipboard.SetText(t);
-                            }
-                            break;
-                        case "to":
-                            Timeout(Convert.ToInt32(g_n));
-                            break;
-                        case "replace":
-                            Clipboard.SetText(Clipboard.GetText().Replace(g_n.Substring(0, g_n.IndexOf("|")), g_n.Substring(g_n.IndexOf("|") + 1)));
-                            break;
-
-                        case "yesno":
-                            DialogResult = MessageBox.Show(g_n, "Verify", MessageBoxButtons.YesNo);
-                            if (DialogResult == DialogResult.Yes) {; } else { g_s = ""; return; }
-                            break;
-                        case "audio":
-                            System.Media.SoundPlayer player = new System.Media.SoundPlayer(g_n);
-                            player.Play();
-                            break;
-                        case "stop-audio":
-                            System.Media.SoundPlayer player1 = new System.Media.SoundPlayer(g_n);
-                            player1.Stop();
-                            break;
-                        case ""://«:»
-                            SendKeys.Send(g_n);
-                            break;
-                        case "<<":
-                            SendKeys.Send(p_);//print open bracket
-                            break;
-                        case ">>":
-                            SendKeys.Send(_p);
-                            break;
-                        case "iw":
-                            g_ignoreWhiteSpace = true;
-                            break;
-                        case "-iw":
-                            g_ignoreWhiteSpace = false;
-                            break;
-                        case "cb":
-                            Clipboard.SetText(g_n);
-                            break;
-                        case "minute":
-                            SleepMinutes(Convert.ToInt32(g_n));
-                            break;
-                        case "sleep":
-                            SleepMS(Convert.ToInt32(g_n));
-                            break;
-                        case "Sleep":
-                            Sleep(Convert.ToInt32(g_n));
-                            break;
-                        case ",":
-                            if (g_n != "0") {
-                                if (g_n != "") { Sleep(Convert.ToInt32(g_n)); }
-                            } else {
-                                Sleep(77);
-                            }
-                            break;
-                        case "App":
-                            Interaction.AppActivate(g_n);
-                            break;
-                        case "app":
-                            Sleep(1);
-                            int x = 0;
-                            App:
-                            try {
-                                x += 1;
-                                Interaction.AppActivate(g_n);
-                            }
-                            catch (Exception) {
-                                if (x == 200 || GetAsyncKeyState(Keys.Escape)) {
-                                    MessageBox.Show(p_ + "app:" + g_n + _p + " " + " not found", "🕓", MessageBoxButtons.OK);
-                                    g_kb_i = -1;
-                                    g_s = "";
-                                    return;
-                                }
-                                Sleep(77);
-                                goto App;
-                                throw;
-                            }
-                            break;
-
-                        case "win":
-                            KeyHold(Keys.LWin);
-                            break;
-                        case "-win":
-                            KeyRelease(Keys.LWin);
-                            break;
-                        case "shift":
-                            KeyHold(Keys.LShiftKey);
-                            break;
-                        case "-shift":
-                            KeyRelease(Keys.LShiftKey);
-                            Keybd_event(Keys.RShiftKey, 0, 2, 0);
-                            break;
-                        case "alt":
-                            Keybd_event(Keys.LMenu, 0, 0, 0);
-                            break;
-                        case "-alt":
-                            Keybd_event(Keys.LMenu, 0, 2, 0);
-                            break;
-                        case "ctrl":
-                            Keybd_event(Keys.LControlKey, 0, 0, 0);
-                            break;
-                        case "-ctrl":
-                            KeyRelease(Keys.LControlKey);
-                            Keybd_event(Keys.LControlKey, 0, 2, 0);
-                            break;
-                        case "up":
-                            Key(Keys.Up, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "right":
-                            Key(Keys.Right, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "down":
-                            Key(Keys.Down, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "left":
-                            Key(Keys.Left, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "tab":
-                            Key(Keys.Tab, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "space":
-                            Key(Keys.Space, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "menu":
-                            Key(Keys.Apps, false, 1);
-                            break;
-                        case "enter":
-                            Key(Keys.Enter, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "backspace":
-                        case "bs":
-                            Key(Keys.Back, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "escape":
-                        case "esc":
-                            Key(Keys.Escape, false, 1);
-                            break;
-                        case "home":
-                            Key(Keys.Home, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "end":
-                            Key(Keys.End, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "pu":
-                            Key(Keys.PageUp, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "pd":
-                            Key(Keys.PageDown, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "insert":
-                            Key(Keys.Insert, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "delete":
-                            Key(Keys.Delete, false, Convert.ToInt32(g_presses));
-                            break;
-
-                        case "f1":
-                            Key(Keys.F1, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "f2":
-                            Key(Keys.F2, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "f3":
-                            Key(Keys.F3, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "f4":
-                            Key(Keys.F4, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "f5":
-                            Key(Keys.F5, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "f6":
-                            Key(Keys.F6, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "f7":
-                            Key(Keys.F7, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "f8":
-                            Key(Keys.F8, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "f9":
-                            Key(Keys.F9, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "f10":
-                            Key(Keys.F10, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "f11":
-                            Key(Keys.F11, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "f12":
-                            Key(Keys.F12, false, Convert.ToInt32(g_presses));
-                            break;
-
-                        case "break":
-                        case "pause":
-                            Key(Keys.Pause, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "printscreen":
-                        case "ps":
-                            Key(Keys.PrintScreen, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "vu":
-                            Key(Keys.VolumeUp, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "vd":
-                            Key(Keys.VolumeDown, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "vm":
-                            Key(Keys.VolumeMute, false, 1);
-                            break;
-
-                        case "caps":
-                            Key(Keys.CapsLock, false, Convert.ToInt32(g_presses));
-                            break;
-
-                        case "nl":
-                            Key(Keys.NumLock, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "sl":
-                            Key(Keys.Scroll, false, Convert.ToInt32(g_presses));
-                            break;
-
-                        case "MediaStop":
-                            Key(Keys.MediaStop, false, 1);
-                            break;
-                        case "MediaPlayPause":
-                            Key(Keys.MediaPlayPause, false, 1);
-                            break;
-                        case "MediaNextTrack":
-                            Key(Keys.MediaNextTrack, false, 1);
-                            break;
-                        case "MediaPreviousTrack":
-                            Key(Keys.MediaPreviousTrack, false, 1);
-                            break;
-                        case "SelectMedia":
-                            Key(Keys.SelectMedia, false, 1);
-                            break;
-
-                        case "xy":
-                            SetCursorPos(Convert.ToInt32(g_n.Substring(0, g_n.IndexOf("-"))), Convert.ToInt32(g_n.Substring(g_n.IndexOf("-") + 1)));
-                            break;
-                        case "rp": //return pointer
-                        case "rm":
-                            SetCursorPos(g_x, g_y);
-                            break;
-                        case "lc":
-                            LeftClick();
-                            break;
-                        case "lh":
-                            LeftHold();
-                            break;
-                        case "lr":
-                            LeftRelease();
-                            break;
-                        case "mc":
-                            MiddleClick();
-                            break;
-                        case "mh":
-                            MiddleHold();
-                            break;
-                        case "mr":
-                            MiddleRelease();
-                            break;
-                        case "rc":
-                            RightClick();
-                            break;
-                        case "rh":
-                            RightHold();
-                            break;
-                        case "rr":
-                            RightRelease();
-                            break;
-
-                        case "lb":
-                            Key(Keys.LButton, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "rb":
-                            Key(Keys.RButton, false, Convert.ToInt32(g_presses));
-                            break;
-                        case "mb":
-                            Key(Keys.MButton, false, Convert.ToInt32(g_presses));
-                            break;
-
-
-                        case "n0":
-                            Key(Keys.NumPad0, false, 1);
-                            break;
-                        case "n1":
-                            Key(Keys.NumPad2, false, 1);
-                            break;
-                        case "n2":
-                            Key(Keys.NumPad2, false, 1);
-                            break;
-                        case "n3":
-                            Key(Keys.NumPad3, false, 1);
-                            break;
-                        case "n4":
-                            Key(Keys.NumPad4, false, 1);
-                            break;
-                        case "n5":
-                            Key(Keys.NumPad5, false, 1);
-                            break;
-                        case "n6":
-                            Key(Keys.NumPad6, false, 1);
-                            break;
-                        case "n7":
-                            Key(Keys.NumPad7, false, 1);
-                            break;
-                        case "n8":
-                            Key(Keys.NumPad8, false, 1);
-                            break;
-                        case "n9":
-                            Key(Keys.NumPad9, false, 1);
-                            break;
-
-                        default://connect
-                            if (middle.StartsWith("'")) { break; }
-                            for (int i = 0; i < ar.Count; i++) {
-                                if (GetAsyncKeyState(Keys.Escape)) { break; }
-                                if (ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1).Contains(middle)) {
-                                    g_i = Convert.ToInt32(ar[i].ToString().Substring(0, ar[i].ToString().IndexOf(":")));
-                                    g_s = ListBox1.Items[g_i].ToString().Substring(ListBox1.Items[g_i].ToString().IndexOf(_p) + 1, ListBox1.Items[g_i].ToString().Length - ListBox1.Items[g_i].ToString().IndexOf(_p) - 1) + g_s;
-                                    //Console.WriteLine("connect: " + ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1));
-                                    if (Properties.Settings.Default.SettingInfiniteLoop == false) {
-                                        if (g_s.Contains(p_ + g_code + _p) || g_s.Contains(middle) && ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1) != middle || g_code == middle && g_s.Length == 0) {
-                                            MessageBox.Show("Infinite loop\n" + p_ + g_code + _p + " >" + g_s, "🕓", MessageBoxButtons.OK);
-                                            g_kb_i = -1;
-                                            g_s = "";
-                                            return;
-                                        }
-                                    }
-                                    PD();
-                                    g_s = "";
-                                    //Console.WriteLine("get value: " + ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1));
-                                    //Console.WriteLine("get index: " + ar[i].ToString().IndexOf(":"));
-                                    break;
-                                }
-                            }
-                            break;
-                    }
-
-                    g_kb_i = -1;// update to 0
-                    g_presses = 1;
-                    g_n = "0";
-                    middle = "";
-                    break;
                 default:
-                    SendKeys.Send(c);
+
+                    if (c == ws_) { g_ignoreWhiteSpace = true; }
+                    else if (c == _ws) { g_ignoreWhiteSpace = false; }
+                    else if (c == p_){
+                        //Console.WriteLine("indexof «:" + g_s.IndexOf(p_) + 1);
+                        //Console.WriteLine("indexof »:" + g_s.IndexOf(_p) +- 2); ///
+
+                        string middle = g_s.Substring(g_s.IndexOf(p_) + 1, g_s.IndexOf(_p) + 1 - g_s.IndexOf(p_) - 2);//grab middle value
+                        //Console.WriteLine("middle: " + middle);
+
+                        if (middle.Contains(":"))
+                        {//grab x:#
+                            g_n = middle.Substring(middle.IndexOf(":") + 1);
+                            middle = middle.Substring(middle.IndexOf(p_) + 1, middle.IndexOf(":"));
+                        }
+                        if (middle.Contains("*"))
+                        {//grab x*#
+                            g_presses = Convert.ToInt32(middle.Substring(middle.IndexOf("*") + 1));
+                            middle = middle.Substring(middle.IndexOf(p_) + 1, middle.IndexOf("*"));
+                            //Console.WriteLine("middle: " + middle);
+                            //Console.WriteLine("g_presses: " + g_presses);
+                        }
+
+                        g_s = g_s.Substring(g_s.IndexOf(_p) + 1);//make new string
+                        //Console.WriteLine("new string: " + g_s.IndexOf(_p) + 1);
+
+
+                        switch (middle)
+                        {
+                            case "x":
+                                SetCursorPos(Convert.ToInt32(g_n) + Cursor.Position.X, Cursor.Position.Y);
+                                break;
+                            case "y":
+                                SetCursorPos(Cursor.Position.X, Convert.ToInt32(g_n) + Cursor.Position.Y);
+                                break;
+                            case "date":
+                                string d = (DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString() + "/" + DateTime.Now.Year.ToString());
+                                if (g_n != "0")
+                                {
+                                    d = (DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString() + "/" + DateTime.Now.Year.ToString());
+                                    d = d.Replace("/", g_n);
+                                }
+                                if (middle == "Date")
+                                {
+                                    SendKeys.Send(d);
+                                }
+                                else
+                                {
+                                    Clipboard.SetText(d);
+                                }
+                                break;
+                            case "time":
+                                string h = DateTime.Now.Hour.ToString();
+                                int hh = Convert.ToInt32(h);
+                                string m = "AM";
+                                if (Convert.ToInt32(h) == 0) { hh += 12; } else if (Convert.ToInt32(h) > 12) { m = "PM"; hh -= 12; }
+                                string t = hh + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString() + ":" + m;
+                                if (g_n != "0") { t = t.Replace(":", g_n); }
+                                Clipboard.SetText(t);
+                                if (middle == "Time")
+                                {
+                                    SendKeys.Send(t);
+                                }
+                                else
+                                {
+                                    Clipboard.SetText(t);
+                                }
+                                break;
+                            case "to":
+                                Timeout(Convert.ToInt32(g_n));
+                                break;
+                            case "replace":
+                                Clipboard.SetText(Clipboard.GetText().Replace(g_n.Substring(0, g_n.IndexOf("|")), g_n.Substring(g_n.IndexOf("|") + 1)));
+                                break;
+
+                            case "yesno":
+                                DialogResult = MessageBox.Show(g_n, "Verify", MessageBoxButtons.YesNo);
+                                if (DialogResult == DialogResult.Yes) {; } else { g_s = ""; return; }
+                                break;
+                            case "audio":
+                                System.Media.SoundPlayer player = new System.Media.SoundPlayer(g_n);
+                                player.Play();
+                                break;
+                            case "stop-audio":
+                                System.Media.SoundPlayer player1 = new System.Media.SoundPlayer(g_n);
+                                player1.Stop();
+                                break;
+                            case ""://«:»
+                                SendKeys.Send(g_n);
+                                break;
+                            case "<<":
+                                SendKeys.Send(p_);//print open bracket
+                                break;
+                            case ">>":
+                                SendKeys.Send(_p);
+                                break;
+                            case "iw":
+                                g_ignoreWhiteSpace = true;
+                                break;
+                            case "-iw":
+                                g_ignoreWhiteSpace = false;
+                                break;
+                            case "cb":
+                                Clipboard.SetText(g_n);
+                                break;
+                            case "minute":
+                                SleepMinutes(Convert.ToInt32(g_n));
+                                break;
+                            case "sleep":
+                                SleepMS(Convert.ToInt32(g_n));
+                                break;
+                            case "Sleep":
+                                Sleep(Convert.ToInt32(g_n));
+                                break;
+                            case ",":
+                                if (g_n != "0")
+                                {
+                                    if (g_n != "") { Sleep(Convert.ToInt32(g_n)); }
+                                }
+                                else
+                                {
+                                    Sleep(77);
+                                }
+                                break;
+                            case "App":
+                                Interaction.AppActivate(g_n);
+                                break;
+                            case "app":
+                                Sleep(1);
+                                int x = 0;
+                                App:
+                                try
+                                {
+                                    x += 1;
+                                    Interaction.AppActivate(g_n);
+                                }
+                                catch (Exception)
+                                {
+                                    if (x == 200 || GetAsyncKeyState(Keys.Escape))
+                                    {
+                                        MessageBox.Show(p_ + "app:" + g_n + _p + " " + " not found", "🕓", MessageBoxButtons.OK);
+                                        g_kb_i = -1;
+                                        g_s = "";
+                                        return;
+                                    }
+                                    Sleep(77);
+                                    goto App;
+                                    throw;
+                                }
+                                break;
+
+                            case "win":
+                                KeyHold(Keys.LWin);
+                                break;
+                            case "-win":
+                                KeyRelease(Keys.LWin);
+                                break;
+                            case "shift":
+                                KeyHold(Keys.LShiftKey);
+                                break;
+                            case "-shift":
+                                KeyRelease(Keys.LShiftKey);
+                                Keybd_event(Keys.RShiftKey, 0, 2, 0);
+                                break;
+                            case "alt":
+                                Keybd_event(Keys.LMenu, 0, 0, 0);
+                                break;
+                            case "-alt":
+                                Keybd_event(Keys.LMenu, 0, 2, 0);
+                                break;
+                            case "ctrl":
+                                Keybd_event(Keys.LControlKey, 0, 0, 0);
+                                break;
+                            case "-ctrl":
+                                KeyRelease(Keys.LControlKey);
+                                Keybd_event(Keys.LControlKey, 0, 2, 0);
+                                break;
+                            case "up":
+                                Key(Keys.Up, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "right":
+                                Key(Keys.Right, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "down":
+                                Key(Keys.Down, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "left":
+                                Key(Keys.Left, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "tab":
+                                Key(Keys.Tab, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "space":
+                                Key(Keys.Space, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "menu":
+                                Key(Keys.Apps, false, 1);
+                                break;
+                            case "enter":
+                                Key(Keys.Enter, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "backspace":
+                            case "bs":
+                                Key(Keys.Back, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "escape":
+                            case "esc":
+                                Key(Keys.Escape, false, 1);
+                                break;
+                            case "home":
+                                Key(Keys.Home, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "end":
+                                Key(Keys.End, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "pu":
+                                Key(Keys.PageUp, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "pd":
+                                Key(Keys.PageDown, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "insert":
+                                Key(Keys.Insert, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "delete":
+                                Key(Keys.Delete, false, Convert.ToInt32(g_presses));
+                                break;
+
+                            case "f1":
+                                Key(Keys.F1, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "f2":
+                                Key(Keys.F2, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "f3":
+                                Key(Keys.F3, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "f4":
+                                Key(Keys.F4, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "f5":
+                                Key(Keys.F5, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "f6":
+                                Key(Keys.F6, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "f7":
+                                Key(Keys.F7, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "f8":
+                                Key(Keys.F8, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "f9":
+                                Key(Keys.F9, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "f10":
+                                Key(Keys.F10, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "f11":
+                                Key(Keys.F11, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "f12":
+                                Key(Keys.F12, false, Convert.ToInt32(g_presses));
+                                break;
+
+                            case "break":
+                            case "pause":
+                                Key(Keys.Pause, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "printscreen":
+                            case "ps":
+                                Key(Keys.PrintScreen, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "vu":
+                                Key(Keys.VolumeUp, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "vd":
+                                Key(Keys.VolumeDown, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "vm":
+                                Key(Keys.VolumeMute, false, 1);
+                                break;
+
+                            case "caps":
+                                Key(Keys.CapsLock, false, Convert.ToInt32(g_presses));
+                                break;
+
+                            case "nl":
+                                Key(Keys.NumLock, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "sl":
+                                Key(Keys.Scroll, false, Convert.ToInt32(g_presses));
+                                break;
+
+                            case "MediaStop":
+                                Key(Keys.MediaStop, false, 1);
+                                break;
+                            case "MediaPlayPause":
+                                Key(Keys.MediaPlayPause, false, 1);
+                                break;
+                            case "MediaNextTrack":
+                                Key(Keys.MediaNextTrack, false, 1);
+                                break;
+                            case "MediaPreviousTrack":
+                                Key(Keys.MediaPreviousTrack, false, 1);
+                                break;
+                            case "SelectMedia":
+                                Key(Keys.SelectMedia, false, 1);
+                                break;
+
+                            case "xy":
+                                SetCursorPos(Convert.ToInt32(g_n.Substring(0, g_n.IndexOf("-"))), Convert.ToInt32(g_n.Substring(g_n.IndexOf("-") + 1)));
+                                break;
+                            case "rp": //return pointer
+                            case "rm":
+                                SetCursorPos(g_x, g_y);
+                                break;
+                            case "lc":
+                                LeftClick();
+                                break;
+                            case "lh":
+                                LeftHold();
+                                break;
+                            case "lr":
+                                LeftRelease();
+                                break;
+                            case "mc":
+                                MiddleClick();
+                                break;
+                            case "mh":
+                                MiddleHold();
+                                break;
+                            case "mr":
+                                MiddleRelease();
+                                break;
+                            case "rc":
+                                RightClick();
+                                break;
+                            case "rh":
+                                RightHold();
+                                break;
+                            case "rr":
+                                RightRelease();
+                                break;
+
+                            case "lb":
+                                Key(Keys.LButton, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "rb":
+                                Key(Keys.RButton, false, Convert.ToInt32(g_presses));
+                                break;
+                            case "mb":
+                                Key(Keys.MButton, false, Convert.ToInt32(g_presses));
+                                break;
+
+
+                            case "n0":
+                                Key(Keys.NumPad0, false, 1);
+                                break;
+                            case "n1":
+                                Key(Keys.NumPad2, false, 1);
+                                break;
+                            case "n2":
+                                Key(Keys.NumPad2, false, 1);
+                                break;
+                            case "n3":
+                                Key(Keys.NumPad3, false, 1);
+                                break;
+                            case "n4":
+                                Key(Keys.NumPad4, false, 1);
+                                break;
+                            case "n5":
+                                Key(Keys.NumPad5, false, 1);
+                                break;
+                            case "n6":
+                                Key(Keys.NumPad6, false, 1);
+                                break;
+                            case "n7":
+                                Key(Keys.NumPad7, false, 1);
+                                break;
+                            case "n8":
+                                Key(Keys.NumPad8, false, 1);
+                                break;
+                            case "n9":
+                                Key(Keys.NumPad9, false, 1);
+                                break;
+
+                            default://connect
+                                if (middle.StartsWith("'")) { break; }
+                                for (int i = 0; i < ar.Count; i++)
+                                {
+                                    if (GetAsyncKeyState(Keys.Escape)) { break; }
+                                    if (ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1).Contains(middle))
+                                    {
+                                        g_i = Convert.ToInt32(ar[i].ToString().Substring(0, ar[i].ToString().IndexOf(":")));
+                                        g_s = ListBox1.Items[g_i].ToString().Substring(ListBox1.Items[g_i].ToString().IndexOf(_p) + 1, ListBox1.Items[g_i].ToString().Length - ListBox1.Items[g_i].ToString().IndexOf(_p) - 1) + g_s;
+                                        //Console.WriteLine("connect: " + ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1));
+                                        if (Properties.Settings.Default.SettingInfiniteLoop == false)
+                                        {
+                                            if (g_s.Contains(p_ + g_code + _p) || g_s.Contains(middle) && ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1) != middle || g_code == middle && g_s.Length == 0)
+                                            {
+                                                MessageBox.Show("Infinite loop\n" + p_ + g_code + _p + " >" + g_s, "🕓", MessageBoxButtons.OK);
+                                                g_kb_i = -1;
+                                                g_s = "";
+                                                return;
+                                            }
+                                        }
+                                        PD();
+                                        g_s = "";
+                                        //Console.WriteLine("get value: " + ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1));
+                                        //Console.WriteLine("get index: " + ar[i].ToString().IndexOf(":"));
+                                        break;
+                                    }
+                                }
+                                break;
+                        }
+
+                        g_kb_i = -1;// update to 0
+                        g_presses = 1;
+                        g_n = "0";
+                        middle = "";
+                    }
+                    else { SendKeys.Send(c); }
+
                     break;
             }
         }
@@ -1219,184 +1237,170 @@ namespace dz
                 }
 
                 string x;
-                if (TextBox1.SelectionStart > 2) {
-                    x = (TextBox1.Text.Substring(TextBox1.SelectionStart - 2, 2));
-                    //Console.WriteLine("2: " + x);
-                    
-                    switch (x) {
-                        case "ap":
-                            AutoComplete("p:", "", 0);
-                            return;
-                        case "au":
-                        case "Au":
-                            AutoComplete("dio:", "", 0);
-                            return;
-                        case "da":
-                            AutoComplete("te", "", 1);
-                            return;
-                        case "de":
-                            AutoComplete("lete*", "", 0);
-                            return;
-                        case "en":
-                            AutoComplete("d", "", 1);
-                            return;
-                        case "es":
-                            AutoComplete("c", "", 1);
-                            return;
-                        case "iw":
-                            AutoComplete("", "-iw", 1);//ignore whitespace 
-                            return;
-                        case "me":
-                            AutoComplete("nu", "", 1);
-                            return;
-                        case "mi":
-                            AutoComplete("nute:", "", 0);
-                            return;
-                        case "re":
-                            AutoComplete("place:|", "", 0);
-                            Key(Keys.Left, false, 1);
-                            return;
-                        case "se"://exe settings
-                            g_s = p_ + "win" + _p + "r" + p_ + "-win" + _p + p_ + "app:run" + _p + Application.LocalUserAppDataPath.ToString().Replace("\\DZ\\" + Application.ProductVersion, "") + p_ + "enter" + _p;
-                            PD();
-                            Interaction.AppActivate(Properties.Settings.Default.SettingTitleText);
-                            Key(Keys.Right, false, 1);
-                            Key(Keys.Back, false, 5);
-                            textBox2.Clear();
-                            return;
-                        case "sl":
-                            AutoComplete("eep:", "", 0);
-                            return;
-                        case "sp":
-                            AutoComplete("ace*", "", 0);
-                            return;
-                        case "st":
-                            AutoComplete("op-audio", "", 1);
-                            return;
-                        case "ti":
-                            AutoComplete("me", "", 1);
-                            return;
-                        case "to"://timeout
-                            AutoComplete(":", "", 0);
-                            return;
-                        case "wr"://run
-                            textBox2.Clear();
-                            Key(Keys.Right, false, 1);
-                            Key(Keys.Back, false, 5);
-                            SendKeys.Send(p_ + "win" + _p + "r" + p_ + "-win" + _p + p_ + "app:run" + _p + p_ + "enter" + _p);
-                            Key(Keys.Left, false, 7);
-                            return;
-                        case "ws"://ignore whitespace
-                            Key(Keys.Right, false, 1);
-                            Key(Keys.Back, false, 5);
-                            SendKeys.Send(ws_ + _ws + "{left}");
-                            return;
-                        case "xy":///
-                            for (int i = 3; i > 1; i--) {
-                                Text = Properties.Settings.Default.SettingTitleText + " > " + p_ + "xy:" + i.ToString() + _p;
-                                Sleep(1000);
-                            }
-                            Key(Keys.Back, false, 1);
-                            textBox2.Clear();
-                            g_s = (":" + MousePosition.X + "-" + MousePosition.Y);
-                            PD();
-                            Key(Keys.Right, false, 1);
-                            return;
-                        case "ye":
-                            AutoComplete("sno:", "", 0);
-                            return;
+                if (TextBox1.SelectionStart > 1) {
+                    x = (TextBox1.Text.Substring(TextBox1.SelectionStart -2 , 3));
+                    x = x.Substring(0, 3);                    
+                    if (x == "ap" + _p) {
+                        AutoComplete("p:", "", 0);
+                        return; }
+                    if (x == "au" + _p || x == "Au" + _p){
+                        AutoComplete("dio:", "", 0);
+                        return; }
+                    if (x == "da" + _p) { 
+                        AutoComplete("te", "", 1);
+                        return; }
+                    if (x == "de" + _p) {
+                        AutoComplete("lete*", "", 0);
+                        return; }
+                    if (x == "en" + _p) {
+                        AutoComplete("d", "", 1);
+                        return; }
+                    if (x == "es" + _p) {
+                        AutoComplete("c", "", 1);
+                        return; }
+                    if (x == "iw" + _p) {
+                        AutoComplete("", "-iw", 1); //ignore whitespace 
+                        return; }
+                    if (x == "me" + _p) {
+                        AutoComplete("nu", "", 1);
+                        return; }
+                    if (x == "mi" + _p) {
+                        AutoComplete("nute:", "", 0);
+                        return; }
+                    if (x == "re" + _p) {
+                        AutoComplete("place:|", "", 0);
+                        Key(Keys.Left, false, 1);
+                        return; }
+                    if (x == "se" + _p) {//exe settings
+                        g_s = p_ + "win" + _p + "r" + p_ + "-win" + _p + p_ + "app:run" + _p + Application.LocalUserAppDataPath.ToString().Replace("\\DZ\\" + Application.ProductVersion, "") + p_ + "enter" + _p;
+                        PD();
+                        Interaction.AppActivate(Properties.Settings.Default.SettingTitleText);
+                        Key(Keys.Right, false, 1);
+                        Key(Keys.Back, false, 5);
+                        textBox2.Clear();
+                        return; }
+                    if (x == "sl" + _p) {
+                        AutoComplete("eep:", "", 0);
+                        return; }
+                    if (x == "sp" + _p) {
+                        AutoComplete("ace*", "", 0);
+                        return; }
+                    if (x == "st" + _p) {
+                        AutoComplete("op-audio", "", 1);
+                        return; }
+                    if (x == "ti" + _p) {
+                        AutoComplete("me", "", 1);
+                        return; }
+                    if (x == "to" + _p) {//timeout
+                        AutoComplete(":", "", 0);
+                        return; }
+                    if (x == "wr" + _p) {//run
+                        textBox2.Clear();
+                        Key(Keys.Right, false, 1);
+                        Key(Keys.Back, false, 5);
+                        SendKeys.Send(p_ + "win" + _p + "r" + p_ + "-win" + _p + p_ + "app:run" + _p + p_ + "enter" + _p);
+                        Key(Keys.Left, false, 7);
+                        return; }
+                    if (x == "ws" + _p) {//ignore whitespace
+                        Key(Keys.Right, false, 1);
+                        Key(Keys.Back, false, 5);
+                        SendKeys.Send(ws_ + _ws + "{left}");
+                        return; }
+                    if (x == "xy" + _p) {
+                        for (int i = 3; i > 1; i--) {
+                            Text = Properties.Settings.Default.SettingTitleText + " > " + p_ + "xy:" + i.ToString() + _p;
+                            Sleep(1000);
+                        }
+                        Key(Keys.Back, false, 1);
+                        textBox2.Clear();
+                        g_s = (":" + MousePosition.X + "-" + MousePosition.Y);
+                        PD();
+                        Key(Keys.Right, false, 1);
+                        return; }
+                    if (x == "ye" + _p) {
+                        AutoComplete("sno:", "", 0);
+                        return; }
+
+                if (TextBox1.SelectionStart > 0) {
+                    x = TextBox1.Text.Substring(TextBox1.SelectionStart - 1, 2);
+                    x = x.Substring(0, 2);
+                    if (x == "a" + _p) {
+                        AutoComplete("lt", "-alt", 1);
+                        return; }
+                    if (x == "b") {
+                        AutoComplete("s*", "", 0);
+                        return; }
+                    if (x == "c" + _p) {
+                        AutoComplete("trl", "-ctrl", 1);
+                        return; }
+                    if (x == "d" + _p) {
+                        AutoComplete("own*", "", 0);
+                        return; }
+                    if (x == "e" + _p) {
+                        AutoComplete("nter*", "", 0);
+                        return; }
+                    if (x == "h" + _p) {
+                        AutoComplete("ome", "", 1);
+                        return; }
+                    if (x == "i" + _p) {
+                        AutoComplete("nsert", "", 1);
+                        return; }
+                    if (x == "l" + _p) {
+                        AutoComplete("eft*", "", 0);
+                        return; }
+                    if (x == "m" + _p) {
+                        AutoComplete("enu", "", 1);
+                        return; }
+                    if (x == "r" + _p) {
+                        AutoComplete("ight*", "", 0);
+                        return; }
+                    if (x == "s" + _p) {
+                        AutoComplete("hift", "-shift", 1);
+                        return; }
+                    if (x == "t" + _p) {
+                        AutoComplete("ab*", "", 0);
+                        return; }
+                    if (x == "u" + _p) {
+                        AutoComplete("p*", "", 0);
+                        return; }
+                    if (x == "w" + _p) {
+                        AutoComplete("in", "-win", 1);
+                        return; }
+                    if (x == "x" + _p || x == "y" + _p || x == "," + _p) {
+                        AutoComplete(":", "", 0);
+                        return; }
+                    if (x == p_ +_p) {
+                        Key(Keys.Back, false, 2);
+                        Key(Keys.Delete, false, 1);
+                        Key(Keys.Tab, false, 1);
+                        return; }
+                    if (x == _p + p_ || x == "\t" || x == _p) {
+                        Key(Keys.Back, false, 1);
+                        SendKeys.Send(p_ + _p + "{left}");
+                        return; }
+                    if (x == "*" + _p || x == ":" + _p) {
+                        Key(Keys.Back, false, 2);
+                        Key(Keys.Right, true, 1);
+                        return; }
+                    if (x == "0" + _p || x == "1" + _p || x == "2" + _p || x ==  "3" + _p || x ==  "4" + _p || x ==  "5" + _p || x ==  "6" + _p || x ==  "7" + _p || x ==  "8" + _p || x ==  "9" + _p) {
+                        Key(Keys.Back, false, 1);
+                        Key(Keys.Right, false, 1);
+                        return;
                     }
+                }
 
-                }// >2
-
-                if (TextBox1.SelectionStart > 1)
-                {
-                    x = (TextBox1.Text.Substring(TextBox1.SelectionStart - 1, 1));
-                    //Console.WriteLine("1: " + x);
-                    switch (x)
-                    {
-                        case "a":
-                            AutoComplete("lt", "-alt", 1);
-                            return;
-                        case "b":
-                            AutoComplete("s*", "", 0);
-                            return;
-                        case "c":
-                            AutoComplete("trl", "-ctrl", 1);
-                            return;
-                        case "d":
-                            AutoComplete("own*", "", 0);
-                            return;
-                        case "e":
-                            AutoComplete("nter*", "", 0);
-                            return;
-                        case "h":
-                            AutoComplete("ome", "", 1);
-                            return;
-                        case "u":
-                            AutoComplete("p*", "", 0);
-                            return;
-                        case "i":
-                            AutoComplete("nsert", "", 1);
-                            return;
-                        case "l":
-                            AutoComplete("eft*", "", 0);
-                            return;
-                        case "m":
-                            AutoComplete("enu", "", 1);
-                            return;
-                        case "r":
-                            AutoComplete("ight*", "", 0);
-                            return;
-                        case "s":
-                            AutoComplete("hift", "-shift", 1);
-                            return;
-                        case "t":
-                            AutoComplete("ab*", "", 0);
-                            return;
-                        case "w":
-                            AutoComplete("in", "-win", 1);
-                            return;
-                        case ",":
-                        case "y":
-                        case "x":
-                            AutoComplete(":", "", 0);
-                            return;
-
-                        case "«"://p_:
-                            Key(Keys.Right, false, 1);
-                            Key(Keys.Back, false, 3);
-                            Key(Keys.Tab, false, 1);
-                            return;
-                        case "»"://_p:
-                        case "\t"://ControlChars.Tab: //Chr(9):
-                            Key(Keys.Back, false, 1);
-                            SendKeys.Send(p_ + _p + "{left}");
-                            return;
-
-                        case "*":
-                            Key(Keys.Back, false, 2);
-                            Key(Keys.Right, true, 1);
-                            return;
-                        case "9":
-                        case "8":
-                        case "7":
-                        case "6":
-                        case "5":
-                        case "4":
-                        case "3":
-                        case "2":
-                        case "1":
-                        case "0":
-                            Key(Keys.Back, false, 1);
-                            Key(Keys.Right, false, 1);
-                            return;
-                    }
-
-                }// >1
-
-                Key(Keys.Back, false, 1);
-                SendKeys.Send(p_ + _p + "{left}");
+            }
+                if (TextBox1.SelectionStart == 0) {
+                    Key(Keys.Back, false, 1);
+                    SendKeys.Send(p_ + _p + "{left}");
+                }else if(TextBox1.SelectionStart == 1 && TextBox1.Text.Substring(TextBox1.SelectionStart - 1, 1) == p_) {
+                    Key(Keys.Right, false, 1);
+                    Key(Keys.Back, false, 3);
+                    Key(Keys.Tab, false, 1);
+                }else{
+                    Key(Keys.Back, false, 1);
+                    SendKeys.Send(p_ + _p + "{left}");
+                }
             }//tab
         }
         private void CleanSelect() {
