@@ -628,7 +628,7 @@ namespace dz
                             string h = DateTime.Now.Hour.ToString();
                             int hh = Convert.ToInt32(h);
                             string m = "AM";
-                            if (Convert.ToInt32(h) > 12) { m = "PM"; hh -= 12; }
+                            if (Convert.ToInt32(h) == 0) { hh += 12; } else if (Convert.ToInt32(h) > 12) { m = "PM"; hh -= 12; }
                             string t = hh + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString() + ":" + m;
                             if (g_n != "0") { t = t.Replace(":", g_n); }
                             Clipboard.SetText(t);
