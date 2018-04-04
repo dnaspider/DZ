@@ -86,6 +86,7 @@
             // 
             this.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.TextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextBox1.EnableAutoDragDrop = true;
             this.TextBox1.Location = new System.Drawing.Point(0, 0);
             this.TextBox1.Name = "TextBox1";
             this.TextBox1.Size = new System.Drawing.Size(258, 107);
