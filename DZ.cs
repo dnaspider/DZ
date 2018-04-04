@@ -14,8 +14,8 @@ namespace dz
         [DllImport("user32", EntryPoint = "keybd_event")] private static extern Int32 Keybd_event(System.Windows.Forms.Keys bVk, byte bScan, int dwFlags, int dwExtraInfo);
         [DllImport("user32")] private static extern ushort SetCursorPos(Int32 X, Int32 Y);
         [DllImport("user32", EntryPoint = "mouse_event")] private static extern Int32 Mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
-
-        //globals
+                
+        #region globals
         System.Collections.ArrayList ar = new System.Collections.ArrayList();
         System.Windows.Forms.Keys g_specialKey = Properties.Settings.Default.SettingSpecialKey;
         string p_ = Properties.Settings.Default.SettingBracketOpen;
@@ -34,7 +34,8 @@ namespace dz
         bool g_drag;
         int g_drag_x;
         int g_drag_y;
-
+        #endregion
+        
         public DZ() { InitializeComponent(); }
 
         //Sub
@@ -62,7 +63,6 @@ namespace dz
                 if (ListBox1.Items[i].ToString().StartsWith(p_)) {
                     ar.Add(i + ":" + ListBox1.Items[i].ToString().Substring(1, ListBox1.Items[i].ToString().IndexOf(_p) - 1));
                 }
-
             }
             //for (int i = 0; i < ar.Count; i++){
             //    Console.WriteLine(ar.Count + ": " + ar[i].ToString());
@@ -191,7 +191,6 @@ namespace dz
             }
             //Console.WriteLine("repeat: " + g_s);
             //Console.WriteLine("#####finish#####" + ControlChars.NewLine);
-
         }
         private void Timeout(int ms) {
             DateTime x = DateTime.Now.AddMilliseconds(ms);
@@ -615,19 +614,12 @@ namespace dz
                                 break;
                             case "date":
                                 string d = (DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString() + "/" + DateTime.Now.Year.ToString());
-                                if (g_n != "0")
-                                {
+                                if (g_n != "0") {
                                     d = (DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString() + "/" + DateTime.Now.Year.ToString());
                                     d = d.Replace("/", g_n);
                                 }
-                                if (middle == "Date")
-                                {
-                                    SendKeys.Send(d);
-                                }
-                                else
-                                {
-                                    Clipboard.SetText(d);
-                                }
+                                if (middle == "Date") { SendKeys.Send(d);}
+                                else { Clipboard.SetText(d); }
                                 break;
                             case "time":
                                 string h = DateTime.Now.Hour.ToString();
@@ -637,14 +629,8 @@ namespace dz
                                 string t = hh + ":" + DateTime.Now.Minute.ToString() + ":" + DateTime.Now.Second.ToString() + ":" + m;
                                 if (g_n != "0") { t = t.Replace(":", g_n); }
                                 Clipboard.SetText(t);
-                                if (middle == "Time")
-                                {
-                                    SendKeys.Send(t);
-                                }
-                                else
-                                {
-                                    Clipboard.SetText(t);
-                                }
+                                if (middle == "Time") { SendKeys.Send(t); }
+                                else { Clipboard.SetText(t); }
                                 break;
                             case "to":
                                 Timeout(Convert.ToInt32(g_n));
@@ -652,7 +638,6 @@ namespace dz
                             case "replace":
                                 Clipboard.SetText(Clipboard.GetText().Replace(g_n.Substring(0, g_n.IndexOf("|")), g_n.Substring(g_n.IndexOf("|") + 1)));
                                 break;
-
                             case "yesno":
                                 DialogResult = MessageBox.Show(g_n, "Verify", MessageBoxButtons.YesNo);
                                 if (DialogResult == DialogResult.Yes) {; } else { g_s = ""; return; }
@@ -693,14 +678,8 @@ namespace dz
                                 Sleep(Convert.ToInt32(g_n));
                                 break;
                             case ",":
-                                if (g_n != "0")
-                                {
-                                    if (g_n != "") { Sleep(Convert.ToInt32(g_n)); }
-                                }
-                                else
-                                {
-                                    Sleep(77);
-                                }
+                                if (g_n != "0") { if (g_n != "") { Sleep(Convert.ToInt32(g_n)); } }
+                                else { Sleep(77); }
                                 break;
                             case "App":
                                 Interaction.AppActivate(g_n);
@@ -709,15 +688,12 @@ namespace dz
                                 Sleep(1);
                                 int x = 0;
                                 App:
-                                try
-                                {
+                                try {
                                     x += 1;
                                     Interaction.AppActivate(g_n);
                                 }
-                                catch (Exception)
-                                {
-                                    if (x == 200 || GetAsyncKeyState(Keys.Escape))
-                                    {
+                                catch (Exception) {
+                                    if (x == 200 || GetAsyncKeyState(Keys.Escape)) {
                                         MessageBox.Show(p_ + "app:" + g_n + _p + " " + " not found", "🕓", MessageBoxButtons.OK);
                                         g_kb_i = -1;
                                         g_s = "";
@@ -728,7 +704,6 @@ namespace dz
                                     throw;
                                 }
                                 break;
-
                             case "win":
                                 KeyHold(Keys.LWin);
                                 break;
@@ -805,7 +780,6 @@ namespace dz
                             case "delete":
                                 Key(Keys.Delete, false, Convert.ToInt32(g_presses));
                                 break;
-
                             case "f1":
                                 Key(Keys.F1, false, Convert.ToInt32(g_presses));
                                 break;
@@ -842,7 +816,6 @@ namespace dz
                             case "f12":
                                 Key(Keys.F12, false, Convert.ToInt32(g_presses));
                                 break;
-
                             case "break":
                             case "pause":
                                 Key(Keys.Pause, false, Convert.ToInt32(g_presses));
@@ -860,18 +833,15 @@ namespace dz
                             case "vm":
                                 Key(Keys.VolumeMute, false, 1);
                                 break;
-
                             case "caps":
                                 Key(Keys.CapsLock, false, Convert.ToInt32(g_presses));
                                 break;
-
                             case "nl":
                                 Key(Keys.NumLock, false, Convert.ToInt32(g_presses));
                                 break;
                             case "sl":
                                 Key(Keys.Scroll, false, Convert.ToInt32(g_presses));
                                 break;
-
                             case "MediaStop":
                                 Key(Keys.MediaStop, false, 1);
                                 break;
@@ -887,7 +857,6 @@ namespace dz
                             case "SelectMedia":
                                 Key(Keys.SelectMedia, false, 1);
                                 break;
-
                             case "xy":
                                 SetCursorPos(Convert.ToInt32(g_n.Substring(0, g_n.IndexOf("-"))), Convert.ToInt32(g_n.Substring(g_n.IndexOf("-") + 1)));
                                 break;
@@ -922,7 +891,6 @@ namespace dz
                             case "rr":
                                 RightRelease();
                                 break;
-
                             case "lb":
                                 Key(Keys.LButton, false, Convert.ToInt32(g_presses));
                                 break;
@@ -932,8 +900,6 @@ namespace dz
                             case "mb":
                                 Key(Keys.MButton, false, Convert.ToInt32(g_presses));
                                 break;
-
-
                             case "n0":
                                 Key(Keys.NumPad0, false, 1);
                                 break;
@@ -964,19 +930,15 @@ namespace dz
                             case "n9":
                                 Key(Keys.NumPad9, false, 1);
                                 break;
-
                             default://connect
                                 if (middle.StartsWith("'")) { break; }
-                                for (int i = 0; i < ar.Count; i++)
-                                {
+                                for (int i = 0; i < ar.Count; i++) {
                                     if (GetAsyncKeyState(Keys.Escape)) { break; }
-                                    if (ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1).Contains(middle))
-                                    {
+                                    if (ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1).Contains(middle)) {
                                         g_i = Convert.ToInt32(ar[i].ToString().Substring(0, ar[i].ToString().IndexOf(":")));
                                         g_s = ListBox1.Items[g_i].ToString().Substring(ListBox1.Items[g_i].ToString().IndexOf(_p) + 1, ListBox1.Items[g_i].ToString().Length - ListBox1.Items[g_i].ToString().IndexOf(_p) - 1) + g_s;
                                         //Console.WriteLine("connect: " + ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1));
-                                        if (Properties.Settings.Default.SettingInfiniteLoop == false)
-                                        {
+                                        if (Properties.Settings.Default.SettingInfiniteLoop == false) {
                                             if (g_s.Contains(p_ + g_code + _p) || g_s.Contains(middle) && ar[i].ToString().Substring(ar[i].ToString().IndexOf(":") + 1) != middle || g_code == middle && g_s.Length == 0)
                                             {
                                                 MessageBox.Show("Infinite loop\n" + p_ + g_code + _p + " >" + g_s, "🕓", MessageBoxButtons.OK);
@@ -994,14 +956,12 @@ namespace dz
                                 }
                                 break;
                         }
-
                         g_kb_i = -1;// update to 0
                         g_presses = 1;
                         g_n = "0";
                         middle = "";
                     }
                     else { SendKeys.Send(c); }
-
                     break;
             }
         }
@@ -1042,6 +1002,22 @@ namespace dz
             ClearAllKeys();
             textBox2.Clear();
 
+        }
+        private void CleanSelect() {
+            Sleep(333);
+            ListBox1.SelectedIndex = ListBox1.SelectedIndex;
+            CleanMock();
+        }
+        private void DragFormInit() {
+            g_drag = true;
+            g_drag_x = Cursor.Position.X - Left;
+            g_drag_y = Cursor.Position.Y - Top;
+        }
+        private void DragForm() {
+            if (g_drag) {
+                Top = Cursor.Position.Y - g_drag_y;
+                Left = Cursor.Position.X - g_drag_x;
+            }
         }
 
         private void TextBox1_DoubleClick(object sender, EventArgs e) {
@@ -1403,23 +1379,6 @@ namespace dz
                 }
             }//tab
         }
-        private void CleanSelect() {
-            Sleep(333);
-            ListBox1.SelectedIndex = ListBox1.SelectedIndex;
-            CleanMock();
-        }
-        private void DragFormInit() {
-            g_drag = true;
-            g_drag_x = Cursor.Position.X - Left;
-            g_drag_y = Cursor.Position.Y - Top;
-        }
-        private void DragForm() {
-            if (g_drag) {
-                Top = Cursor.Position.Y - g_drag_y;
-                Left = Cursor.Position.X - g_drag_x;
-            }
-        }
-
         private void DZ_Load(object sender, EventArgs e) {
             if (Properties.Settings.Default.SettingFirstLoad == 0) { Application.Restart(); }
             if (Properties.Settings.Default.SettingIcon != "") { Icon = new Icon(Properties.Settings.Default.SettingIcon); }
@@ -1596,13 +1555,11 @@ namespace dz
             if (e.Button == MouseButtons.Left) { DragForm(); }
         }
         private void DZ_MouseUp(object sender, MouseEventArgs e) { g_drag = false; }
-
         private void DZ_DoubleClick(object sender, EventArgs e) {
             GetAsyncKeyState(Keys.LControlKey);
             if (Properties.Settings.Default.SettingBackgroundImage != "") { FixedSize(); }
             if (GetAsyncKeyState(Keys.LControlKey)) { CenterToScreen(); }
         }
-
         private void SplitContainer1_MouseDown(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Right) { 
                 if (ListBox1.SelectedIndex == ListBox1.Items.Count - 1) {
