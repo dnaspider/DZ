@@ -118,9 +118,9 @@ namespace dz
                 BackColor = Color.Black;
                 SplitContainer1.BackColor = Color.Black;
                 ListBox1.BackColor = Color.Black;
-                ListBox1.ForeColor = Color.Lime;
+                ListBox1.ForeColor = Properties.Settings.Default.SettingDarkModeText;
                 TextBox1.BackColor = Color.Black;
-                TextBox1.ForeColor = Color.Lime;
+                TextBox1.ForeColor = Properties.Settings.Default.SettingDarkModeText;
             }
         }
         private void FixedSize() {
@@ -1461,6 +1461,7 @@ namespace dz
                 Properties.Settings.Default.SettingIgnoreWhiteSpaceOpen = Properties.Settings.Default.SettingIgnoreWhiteSpaceOpen;
                 Properties.Settings.Default.SettingIgnoreWhiteSpaceClose = Properties.Settings.Default.SettingIgnoreWhiteSpaceClose;
                 Properties.Settings.Default.SettingInsertSymbol = Properties.Settings.Default.SettingInsertSymbol;
+                Properties.Settings.Default.SettingDarkModeText = Properties.Settings.Default.SettingDarkModeText;
                 Properties.Settings.Default.SettingFirstLoad += 1;
             }
 

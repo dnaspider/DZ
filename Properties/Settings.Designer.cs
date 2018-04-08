@@ -432,5 +432,17 @@ namespace dz.Properties {
                 this["SettingFirstLoad"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Lime")]
+        public global::System.Drawing.Color SettingDarkModeText {
+            get {
+                return ((global::System.Drawing.Color)(this["SettingDarkModeText"]));
+            }
+            set {
+                this["SettingDarkModeText"] = value;
+            }
+        }
     }
 }
