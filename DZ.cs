@@ -1356,7 +1356,7 @@ namespace dz
                         return; }
                     if (x == "*" + _p || x == ":" + _p) {
                         Key(Keys.Back, false, 2);
-                        Key(Keys.Right, true, 1);
+                        Key(Keys.Right, false, 1);
                         return; }
                     if (x == "0" + _p || x == "1" + _p || x == "2" + _p || x ==  "3" + _p || x ==  "4" + _p || x ==  "5" + _p || x ==  "6" + _p || x ==  "7" + _p || x ==  "8" + _p || x ==  "9" + _p) {
                         Key(Keys.Back, false, 1);
