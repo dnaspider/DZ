@@ -978,7 +978,7 @@ namespace dz {
                     break;
                 case 2:
                     g_code = ListBox1.SelectedItem.ToString().Substring(1, ListBox1.SelectedItem.ToString().IndexOf(_p) - 1);
-                    Key(Keys.Back, false, (g_code.Replace(Properties.Settings.Default.SettingInsertSymbol, "").Replace(".", "").Replace("-", "").Length));//auto bs*#
+                    Key(Keys.Back, false, (g_code.Replace(Properties.Settings.Default.SettingInsertSymbol, "").Replace("-", "").Length));//auto bs*#
                     PD();
                     break;
                 case 3:
