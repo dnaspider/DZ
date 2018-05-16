@@ -267,7 +267,6 @@ namespace dz {
             GetAsyncKeyState(Keys.Y);
             GetAsyncKeyState(Keys.Z);
 
-            GetAsyncKeyState(Keys.Escape);
             GetAsyncKeyState(Keys.Tab);
             GetAsyncKeyState(Keys.Insert);
             GetAsyncKeyState(Keys.Space);
@@ -1111,7 +1110,6 @@ namespace dz {
             if (GetAsyncKeyState(Keys.D9)) { textBox2.AppendText("9"); }
             if (GetAsyncKeyState(Keys.D0)) { textBox2.AppendText("0"); }
 
-            if (GetAsyncKeyState(Keys.Escape)) { textBox2.AppendText("."); }
             if (GetAsyncKeyState(Keys.Tab)) { textBox2.AppendText("T"); }
             if (GetAsyncKeyState(Keys.Space)) { textBox2.AppendText(" "); }
 
@@ -1119,18 +1117,15 @@ namespace dz {
                 Clipboard.SetText(p_ + "xy:" + MousePosition.X + "-" + MousePosition.Y + _p);
             }
 
-            if (GetAsyncKeyState(Keys.Escape) && GetAsyncKeyState(Keys.H))
-            {
+            if (GetAsyncKeyState(Keys.Escape) && GetAsyncKeyState(Keys.H)) {
                 KeyRelease(Keys.H);
                 KeyRelease(Keys.Escape);
-                if (!Visible)
-                {
+                if (!Visible) {
                     Show();
                     if (Text != "") { Interaction.AppActivate(Properties.Settings.Default.SettingTitleText); }
                     return;
                 }
-                if (Visible)
-                {
+                if (Visible) {
                     Hide();
                     return;
                 }
@@ -1146,8 +1141,7 @@ namespace dz {
                 return;
             }
 
-            for (int i = 0; i < ListBox1.Items.Count; i++)
-            {
+            for (int i = 0; i < ListBox1.Items.Count; i++) {
                 if (GetAsyncKeyState(Keys.Escape)) { break; }
                 if (textBox2.Text == p_) { return; }
                 if (ListBox1.Items[i].ToString() == "" || ListBox1.Items[i].ToString().StartsWith("'")) { continue; }//rem
@@ -1296,7 +1290,7 @@ namespace dz {
                     if (x == "a" + _p) {
                         AutoComplete("lt", "-alt", 1);
                         return; }
-                    if (x == "b") {
+                    if (x == "b" + _p) {
                         AutoComplete("s*", "", 0);
                         return; }
                     if (x == "c" + _p) {
