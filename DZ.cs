@@ -6,10 +6,8 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Microsoft.VisualBasic;
 
-namespace dz
-{
-    public partial class DZ : Form
-    {
+namespace dz {
+    public partial class DZ : Form {
         [DllImport("user32")] private static extern bool GetAsyncKeyState(System.Windows.Forms.Keys vKey);
         [DllImport("user32", EntryPoint = "keybd_event")] private static extern Int32 Keybd_event(System.Windows.Forms.Keys bVk, byte bScan, int dwFlags, int dwExtraInfo);
         [DllImport("user32")] private static extern ushort SetCursorPos(Int32 X, Int32 Y);
@@ -39,8 +37,7 @@ namespace dz
         public DZ() { InitializeComponent(); }
 
         //Sub
-        private void Key(System.Windows.Forms.Keys key, bool shft, int presses)
-        {
+        private void Key(System.Windows.Forms.Keys key, bool shft, int presses) {
             if (shft == true) { Keybd_event(Keys.RShiftKey, 0, 1, 0); }
             if (g_presses > 1) { presses = g_presses; }
             for (int i = 0; i < presses; i++)
@@ -151,8 +148,7 @@ namespace dz
                 CleanMock();
             }
         }
-        private void AutoComplete(String fill, String fill2, int right)
-        {
+        private void AutoComplete(String fill, String fill2, int right) {
             Key(Keys.Back, false, 1);
             g_s = fill;
             PD();
@@ -271,9 +267,11 @@ namespace dz
             GetAsyncKeyState(Keys.Y);
             GetAsyncKeyState(Keys.Z);
 
-            GetAsyncKeyState(g_specialKey);
+            GetAsyncKeyState(Keys.Escape);
+            GetAsyncKeyState(Keys.Tab);
             GetAsyncKeyState(Keys.Insert);
             GetAsyncKeyState(Keys.Space);
+            GetAsyncKeyState(g_specialKey);
         }
         private void Kb(string c) {
             switch (c) {
@@ -981,7 +979,7 @@ namespace dz
                     break;
                 case 2:
                     g_code = ListBox1.SelectedItem.ToString().Substring(1, ListBox1.SelectedItem.ToString().IndexOf(_p) - 1);
-                    Key(Keys.Back, false, (g_code.Replace(Properties.Settings.Default.SettingInsertSymbol, "").Replace("-", "").Length));//auto bs*#
+                    Key(Keys.Back, false, (g_code.Replace(Properties.Settings.Default.SettingInsertSymbol, "").Replace(".", "").Replace("-", "").Length));//auto bs*#
                     PD();
                     break;
                 case 3:
@@ -1030,17 +1028,14 @@ namespace dz
                 return;
             }
         }
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
+        private void Timer1_Tick(object sender, EventArgs e) {
             if (GetAsyncKeyState(Keys.Back)) { if (textBox2.TextLength > 0) { textBox2.Text = textBox2.Text.Substring(0, textBox2.TextLength - 1); } }
 
-            if (GetAsyncKeyState(Keys.Scroll))
-            {
+            if (GetAsyncKeyState(Keys.Scroll)) {
                 if (TextBox1.ContainsFocus) { return; }
                 textBox2.Text = "'";
                 if (Properties.Settings.Default.SettingTitleTip == true && ControlBox == true) { Text = Properties.Settings.Default.SettingTitleText + " > " + g_s; }
-                if (TextBox1.Text != "")
-                {
+                if (TextBox1.Text != "") {
                     if (TextBox1.SelectedText.Length > 0) { g_s = TextBox1.SelectedText; }
                     if (TextBox1.SelectedText.Length == 0) { g_s = TextBox1.Text; }
                     if (Properties.Settings.Default.SettingTitleTip == true && ControlBox == true) { Text = Properties.Settings.Default.SettingTitleText + " > " + g_s; }
@@ -1052,20 +1047,16 @@ namespace dz
                 textBox2.Clear();
             }
 
-            if (TextBox1.ContainsFocus && GetAsyncKeyState(Keys.F5))
-            {
+            if (TextBox1.ContainsFocus && GetAsyncKeyState(Keys.F5)) {
                 if (TextBox1.Text == "") { return; }
                 textBox2.Text = "'";
                 bool x = Visible;
                 Visible = false;
                 Sleep(1);
-                if (TextBox1.SelectedText.Length > 0)
-                {
+                if (TextBox1.SelectedText.Length > 0) {
                     g_s = TextBox1.SelectedText;
                     PD();
-                }
-                else
-                {
+                } else {
                     if (TextBox1.TextLength > 0) { g_s = TextBox1.Text; PD(); }
                 }
                 Visible = x;
@@ -1120,6 +1111,8 @@ namespace dz
             if (GetAsyncKeyState(Keys.D9)) { textBox2.AppendText("9"); }
             if (GetAsyncKeyState(Keys.D0)) { textBox2.AppendText("0"); }
 
+            if (GetAsyncKeyState(Keys.Escape)) { textBox2.AppendText("."); }
+            if (GetAsyncKeyState(Keys.Tab)) { textBox2.AppendText("T"); }
             if (GetAsyncKeyState(Keys.Space)) { textBox2.AppendText(" "); }
 
             if (GetAsyncKeyState(Keys.Escape) && GetAsyncKeyState(Keys.X)) {
@@ -1467,11 +1460,14 @@ namespace dz
 
             Properties.Settings.Default.Save();
         }
-        private void TextBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e) {//prevent default tab
+        private void TextBox1_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e) {//prevent default tab 
+            if (GetAsyncKeyState(Keys.LControlKey) && GetAsyncKeyState(Keys.Tab)) {
+                ListBox1.Focus();
+                return;
+            }
             if (e.KeyCode == Keys.Tab) e.IsInputKey = true;
         }
-        private void ListBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
+        private void ListBox1_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == 5) {
                 TextClear();
                 EditDbItm();
@@ -1510,8 +1506,7 @@ namespace dz
         private void ListBox1_KeyUp(object sender, KeyEventArgs e) {
             if (e.KeyValue == 46) { RemoveDbItm(); }//delete
         }
-        private void TextBox1_KeyDown(object sender, KeyEventArgs e)
-        {
+        private void TextBox1_KeyDown(object sender, KeyEventArgs e) {
             if (GetAsyncKeyState(Keys.LControlKey) && (GetAsyncKeyState(Keys.F))) {
                 if (ListBox1.SelectedIndex == -1) { if (ListBox1.Items.Count > 0) { ListBox1.SelectedIndex = 0; } else { return; } }
                 if (ListBox1.SelectedIndex == ListBox1.Items.Count - 1) { ListBox1.SelectedIndex = 0; return; }
@@ -1538,14 +1533,10 @@ namespace dz
                 if (getLineNumb == 1) { TextBox1.SelectionStart = 0; return; }//Bottom
             }//home            
         }
-        private void TextBox1_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (TextBox1.Text.StartsWith("'"))
-            {
+        private void TextBox1_KeyUp(object sender, KeyEventArgs e) {
+            if (TextBox1.Text.StartsWith("'")) {
                 if (Timer1.Enabled == true) { Text = Properties.Settings.Default.SettingTitleText + " > Off"; Timer1.Enabled = false; }
-            }
-            else
-            {
+            } else {
                 if (Timer1.Enabled == false) { ClearAllKeys(); textBox2.Clear(); Text = Properties.Settings.Default.SettingTitleText; Timer1.Enabled = true; }
             }//off/on
         }        
