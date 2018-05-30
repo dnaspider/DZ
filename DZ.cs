@@ -16,6 +16,7 @@ namespace dz {
         #region globals
         System.Collections.ArrayList ar = new System.Collections.ArrayList();
         System.Windows.Forms.Keys g_specialKey = Properties.Settings.Default.SettingSpecialKey;
+        System.Windows.Forms.Keys g_repeatKey = Properties.Settings.Default.SettingRepeatKey;
         string p_ = Properties.Settings.Default.SettingBracketOpen;
         string _p = Properties.Settings.Default.SettingBracketClose;
         string ws_ = Properties.Settings.Default.SettingIgnoreWhiteSpaceOpen;
@@ -198,8 +199,7 @@ namespace dz {
         private void SleepMinutes(int m) {
             System.DateTime x = DateTime.Now.AddMinutes(m);
             Application.DoEvents();
-            while (x > DateTime.Now)
-            {
+            while (x > DateTime.Now) {
                 if (GetAsyncKeyState(Keys.Pause) || GetAsyncKeyState(Keys.Escape)) { break; }
                 System.Threading.Thread.Sleep(m);
             }
@@ -271,6 +271,7 @@ namespace dz {
             GetAsyncKeyState(Keys.Insert);
             GetAsyncKeyState(Keys.Space);
             GetAsyncKeyState(g_specialKey);
+            GetAsyncKeyState(g_repeatKey);
         }
         private void Kb(string c) {
             switch (c) {
@@ -970,8 +971,7 @@ namespace dz {
             //Console.WriteLine("string: " + listBox1.SelectedItem.ToString().Substring(listBox1.SelectedItem.ToString().IndexOf(_p) + 1, listBox1.SelectedItem.ToString().Length - listBox1.SelectedItem.ToString().IndexOf(_p) - 1));
             g_s = ListBox1.SelectedItem.ToString().Substring(ListBox1.SelectedItem.ToString().IndexOf(_p) + 1, ListBox1.SelectedItem.ToString().Length - ListBox1.SelectedItem.ToString().IndexOf(_p) - 1);
 
-            switch (opt)
-            {
+            switch (opt) {
                 case 1:
                     g_code = ListBox1.SelectedItem.ToString().Substring(1, ListBox1.SelectedItem.ToString().IndexOf(_p) - 1);
                     PD();
@@ -984,16 +984,12 @@ namespace dz {
                 case 3:
                     //Console.WriteLine(listBox1.SelectedItem.ToString().Substring(g_length) );
                     g_s = ListBox1.SelectedItem.ToString().Substring(g_length);
-                    if (Properties.Settings.Default.SettingSendkeysOnlyMode)
-                    {
+                    if (Properties.Settings.Default.SettingSendkeysOnlyMode) {
                         SendKeys.Send(g_s);
-                    }
-                    else
-                    {
+                    } else {
                         PD();
                     }
                     break;
-
             }
 
             ClearAllKeys();
@@ -1030,7 +1026,7 @@ namespace dz {
         private void Timer1_Tick(object sender, EventArgs e) {
             if (GetAsyncKeyState(Keys.Back)) { if (textBox2.TextLength > 0) { textBox2.Text = textBox2.Text.Substring(0, textBox2.TextLength - 1); } }
 
-            if (GetAsyncKeyState(Keys.Scroll)) {
+            if (GetAsyncKeyState(g_repeatKey)) {
                 if (TextBox1.ContainsFocus) { return; }
                 textBox2.Text = "'";
                 if (Properties.Settings.Default.SettingTitleTip == true && ControlBox == true) { Text = Properties.Settings.Default.SettingTitleText + " > " + g_s; }

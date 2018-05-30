@@ -7,7 +7,7 @@
     <ProjectGuid>{7B48F915-6DE8-4F15-9671-B474BB487B1A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>dz</RootNamespace>
-    <AssemblyName>DZ</AssemblyName>
+    <AssemblyName>dz</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
