@@ -15,7 +15,7 @@ namespace dz {
                 
         #region globals
         System.Collections.ArrayList ar = new System.Collections.ArrayList();
-        System.Windows.Forms.Keys g_specialKey = Properties.Settings.Default.SettingSpecialKey;
+        System.Windows.Forms.Keys g_bracketKey = Properties.Settings.Default.SettingBracketKey;
         System.Windows.Forms.Keys g_repeatKey = Properties.Settings.Default.SettingRepeatKey;
         string p_ = Properties.Settings.Default.SettingBracketOpen;
         string _p = Properties.Settings.Default.SettingBracketClose;
@@ -39,10 +39,9 @@ namespace dz {
 
         //Sub
         private void Key(System.Windows.Forms.Keys key, bool shft, int presses) {
-            if (shft == true) { Keybd_event(Keys.RShiftKey, 0, 1, 0); }
+            if (shft) { Keybd_event(Keys.RShiftKey, 0, 1, 0); }
             if (g_presses > 1) { presses = g_presses; }
-            for (int i = 0; i < presses; i++)
-            {
+            for (int i = 0; i < presses; i++) {
                 Keybd_event(key, 0, 0, 0);
                 Keybd_event(key, 0, 2, 0);
             }
@@ -72,7 +71,7 @@ namespace dz {
             TextClear();
             ListBox1.SelectedIndex = ListBox1.Items.Count - 1;
             KeyRelease(Keys.S);
-            KeyRelease(g_specialKey);
+            KeyRelease(g_bracketKey);
             CleanMock();
             LoadArray();
         }
@@ -270,7 +269,7 @@ namespace dz {
             GetAsyncKeyState(Keys.Tab);
             GetAsyncKeyState(Keys.Insert);
             GetAsyncKeyState(Keys.Space);
-            GetAsyncKeyState(g_specialKey);
+            GetAsyncKeyState(g_bracketKey);
             GetAsyncKeyState(g_repeatKey);
         }
         private void Kb(string c) {
@@ -1059,7 +1058,20 @@ namespace dz {
                 textBox2.Clear();
             }
 
-            if (GetAsyncKeyState(g_specialKey)) { if (textBox2.Text.StartsWith(p_)) { textBox2.Clear(); } else { ClearAllKeys(); textBox2.Text = p_; } }
+            //if (GetAsyncKeyState(g_bracketKey)) { if (textBox2.Text.StartsWith(p_)) { textBox2.Clear(); } else { ClearAllKeys(); textBox2.Text = p_; } }
+            if (GetAsyncKeyState(g_bracketKey)) { 
+                if (textBox2.Text.StartsWith(p_)) {
+                    if (Properties.Settings.Default.SettingOpenCloseBracketModeScan) {
+                        if (textBox2.Text.Contains(_p) || textBox2.Text == p_) { textBox2.Clear(); } else { textBox2.Text += _p; return; }
+                    }else{
+                        textBox2.Clear();
+                    }
+                }else{ 
+                    ClearAllKeys();
+                    textBox2.Text = p_;
+                }
+            }
+
 
             if (Properties.Settings.Default.SettingBracketModeOnlyScan && textBox2.Text.StartsWith(p_) == false) { return; }
 
@@ -1142,23 +1154,34 @@ namespace dz {
                 if (textBox2.Text == p_) { return; }
                 if (ListBox1.Items[i].ToString() == "" || ListBox1.Items[i].ToString().StartsWith("'")) { continue; }//rem
 
-                g_i = i;
+                g_i = i;                
                 if (textBox2.Text.StartsWith(p_)) {//«x»|«x-»
-                    if (ListBox1.Items[i].ToString().StartsWith(textBox2.Text + _p)) {//«x»
-                        Sk(1);
-                        break;
+                    if (Properties.Settings.Default.SettingOpenCloseBracketModeScan) {
+                        if (ListBox1.Items[i].ToString().StartsWith(textBox2.Text) && textBox2.Text.EndsWith(_p)) {//«x»
+                            Sk(1);
+                            break;
+                        }
+                        if (ListBox1.Items[i].ToString().StartsWith(textBox2.Text.Substring(0, textBox2.TextLength - 1) + "-") && textBox2.Text.EndsWith(_p)) {//«x-»
+                            Sk(2);
+                            break;
+                        }
+                        if (i == ListBox1.Items.Count - 1 && textBox2.Text.EndsWith(_p)) { textBox2.Clear(); }
+                    }else{
+                        if (ListBox1.Items[i].ToString().StartsWith(textBox2.Text + _p)) {//«x
+                            Sk(1);
+                            break;
+                        }
+                        if (ListBox1.Items[i].ToString().StartsWith(textBox2.Text + "-" + _p)) {//«x-
+                            Sk(2);
+                            break;
+                        }                        
                     }
-                    if (ListBox1.Items[i].ToString().StartsWith(textBox2.Text + "-" + _p)) {//«x-»
-                        Sk(2);
-                        break;
-                    }
-                    continue;
+                    continue;               
                 }
 
                 //Console.WriteLine(textBox2.Text.Substring(0, g_length));
                 if (ListBox1.Items[i].ToString().Length > g_length) {
-                    if (textBox2.Text.Substring(0, g_length) == ListBox1.Items[i].ToString().Substring(0, g_length))
-                    {
+                    if (textBox2.Text.Substring(0, g_length) == ListBox1.Items[i].ToString().Substring(0, g_length)) {
                         Sk(3);
                         break;
                     }//x
@@ -1429,7 +1452,7 @@ namespace dz {
                 Properties.Settings.Default.SettingTitleText = Properties.Settings.Default.SettingTitleText;
                 Properties.Settings.Default.SettingWordWrap = Properties.Settings.Default.SettingWordWrap;
                 Properties.Settings.Default.SettingCodeLength = Properties.Settings.Default.SettingCodeLength;
-                Properties.Settings.Default.SettingSpecialKey = Properties.Settings.Default.SettingSpecialKey;
+                Properties.Settings.Default.SettingBracketKey = Properties.Settings.Default.SettingBracketKey;
                 Properties.Settings.Default.SettingTitleTip = Properties.Settings.Default.SettingTitleTip;
                 Properties.Settings.Default.SettingBracketModeOnlyScan = Properties.Settings.Default.SettingBracketModeOnlyScan;
                 Properties.Settings.Default.SettingFrequency = Properties.Settings.Default.SettingFrequency;
@@ -1445,6 +1468,7 @@ namespace dz {
                 Properties.Settings.Default.SettingIgnoreWhiteSpaceClose = Properties.Settings.Default.SettingIgnoreWhiteSpaceClose;
                 Properties.Settings.Default.SettingInsertSymbol = Properties.Settings.Default.SettingInsertSymbol;
                 Properties.Settings.Default.SettingDarkModeText = Properties.Settings.Default.SettingDarkModeText;
+                Properties.Settings.Default.SettingOpenCloseBracketModeScan = Properties.Settings.Default.SettingOpenCloseBracketModeScan;
                 Properties.Settings.Default.SettingFirstLoad += 1;
             }
 

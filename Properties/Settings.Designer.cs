@@ -124,12 +124,12 @@ namespace dz.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("RControlKey")]
-        public global::System.Windows.Forms.Keys SettingSpecialKey {
+        public global::System.Windows.Forms.Keys SettingBracketKey {
             get {
-                return ((global::System.Windows.Forms.Keys)(this["SettingSpecialKey"]));
+                return ((global::System.Windows.Forms.Keys)(this["SettingBracketKey"]));
             }
             set {
-                this["SettingSpecialKey"] = value;
+                this["SettingBracketKey"] = value;
             }
         }
         
@@ -454,6 +454,18 @@ namespace dz.Properties {
             }
             set {
                 this["SettingRepeatKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SettingOpenCloseBracketModeScan {
+            get {
+                return ((bool)(this["SettingOpenCloseBracketModeScan"]));
+            }
+            set {
+                this["SettingOpenCloseBracketModeScan"] = value;
             }
         }
     }
