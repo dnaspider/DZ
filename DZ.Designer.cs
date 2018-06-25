@@ -59,14 +59,16 @@
             // SplitContainer1.Panel1
             // 
             this.SplitContainer1.Panel1.Controls.Add(this.ListBox1);
+            this.SplitContainer1.Panel1MinSize = 2;
             // 
             // SplitContainer1.Panel2
             // 
             this.SplitContainer1.Panel2.Controls.Add(this.TextBox1);
             this.SplitContainer1.Panel2.Controls.Add(this.textBox2);
+            this.SplitContainer1.Panel2MinSize = 1;
             this.SplitContainer1.Size = new System.Drawing.Size(260, 204);
             this.SplitContainer1.SplitterDistance = 77;
-            this.SplitContainer1.SplitterWidth = 18;
+            this.SplitContainer1.SplitterWidth = 14;
             this.SplitContainer1.TabIndex = 0;
             this.SplitContainer1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.SplitContainer1_MouseDown);
             // 
@@ -89,7 +91,7 @@
             this.TextBox1.EnableAutoDragDrop = true;
             this.TextBox1.Location = new System.Drawing.Point(0, 0);
             this.TextBox1.Name = "TextBox1";
-            this.TextBox1.Size = new System.Drawing.Size(258, 107);
+            this.TextBox1.Size = new System.Drawing.Size(258, 111);
             this.TextBox1.TabIndex = 3;
             this.TextBox1.Text = "";
             this.TextBox1.DoubleClick += new System.EventHandler(this.TextBox1_DoubleClick);
