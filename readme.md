@@ -10,5 +10,3 @@ This is a manual clone of [dnaspider/PD](https://github.com/dnaspider/PD)
 Visual Studio 2017
 
 Right click dz.csproj or dz -> Open with -> Visual Studio
-
-<sub><sub>2018</sub></sub>
