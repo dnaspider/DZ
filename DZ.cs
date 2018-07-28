@@ -1425,6 +1425,7 @@ namespace dz {
 
             if (Properties.Settings.Default.SettingBackgroundImage != "") {
                 BackgroundImage = Image.FromFile(Properties.Settings.Default.SettingBackgroundImage);
+                if (GetAsyncKeyState(Keys.LControlKey)) return;
                 FixedSize();
             }
         }
@@ -1469,6 +1470,7 @@ namespace dz {
                 Properties.Settings.Default.SettingInsertSymbol = Properties.Settings.Default.SettingInsertSymbol;
                 Properties.Settings.Default.SettingDarkModeText = Properties.Settings.Default.SettingDarkModeText;
                 Properties.Settings.Default.SettingOpenCloseBracketModeScan = Properties.Settings.Default.SettingOpenCloseBracketModeScan;
+                Properties.Settings.Default.SettingClickItemToRun = Properties.Settings.Default.SettingClickItemToRun;
                 Properties.Settings.Default.SettingFirstLoad += 1;
             }
 
@@ -1575,5 +1577,18 @@ namespace dz {
                 }
             }
         }//select top or bottom item
+
+        private void ListBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (Properties.Settings.Default.SettingClickItemToRun)
+            {
+                Hide();LeftRelease();textBox2.Text="'";
+                if (ListBox1.SelectedItem.ToString().StartsWith(p_)) { g_s = ListBox1.SelectedItem.ToString().Substring(ListBox1.SelectedItem.ToString().IndexOf(_p) + 1, ListBox1.SelectedItem.ToString().Length - ListBox1.SelectedItem.ToString().IndexOf(_p) - 1); } else { g_s = ListBox1.Text; }
+                PD();
+                ClearAllKeys();
+                textBox2.Clear();
+                Show();
+            }
+        }
     }
 }

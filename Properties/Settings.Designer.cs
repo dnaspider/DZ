@@ -468,5 +468,17 @@ namespace dz.Properties {
                 this["SettingOpenCloseBracketModeScan"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SettingClickItemToRun {
+            get {
+                return ((bool)(this["SettingClickItemToRun"]));
+            }
+            set {
+                this["SettingClickItemToRun"] = value;
+            }
+        }
     }
 }

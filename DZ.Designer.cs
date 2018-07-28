@@ -81,6 +81,7 @@
             this.ListBox1.Name = "ListBox1";
             this.ListBox1.Size = new System.Drawing.Size(258, 75);
             this.ListBox1.TabIndex = 0;
+            this.ListBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListBox1_MouseClick);
             this.ListBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ListBox1_KeyPress);
             this.ListBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ListBox1_KeyUp);
             // 
