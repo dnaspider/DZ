@@ -1039,6 +1039,7 @@ namespace dz {
                 if (Properties.Settings.Default.SettingTitleTip == true && ControlBox == true) { Text = Properties.Settings.Default.SettingTitleText; }
                 ClearAllKeys();
                 textBox2.Clear();
+                g_i = g_s.Length;return;
             }
 
             if (TextBox1.ContainsFocus && GetAsyncKeyState(Keys.F5)) {
