@@ -709,7 +709,7 @@ namespace dz {
                                 KeyRelease(Keys.LWin);
                                 break;
                             case "shift":
-                                Keybd_event(Keys.LShiftKey, 0, 0, 0);
+                                Keybd_event(Keys.LShiftKey, 0, 1, 0);
                                 break;
                             case "-shift":
                                 KeyRelease(Keys.LShiftKey);
