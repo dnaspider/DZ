@@ -41,14 +41,15 @@ namespace dz {
         private void Key(System.Windows.Forms.Keys key, bool shft, int presses) {
             if (shft) { Keybd_event(Keys.RShiftKey, 0, 1, 0); }
             if (g_presses > 1) { presses = g_presses; }
+            int x = 1; if (key == Keys.Left || key == Keys.Up || key == Keys.Right || key == Keys.Down || key == Keys.Home || key == Keys.End) x = 1; else x = 0;
             for (int i = 0; i < presses; i++) {
-                Keybd_event(key, 0, 0, 0);
+                Keybd_event(key, 0, x, 0);
                 Keybd_event(key, 0, 2, 0);
             }
             if (shft) { Keybd_event(Keys.RShiftKey, 0, 2, 0); }
             GetAsyncKeyState(key);
         }
-        private void KeyHold(System.Windows.Forms.Keys key) { Keybd_event(key, 0, 1, 0); }
+        //private void KeyHold(System.Windows.Forms.Keys key) { int x = 0; if (key == Keys.LShiftKey) x = 0; else x = 1; Keybd_event(key, 0, x, 0); }
         private void KeyRelease(System.Windows.Forms.Keys key) { Keybd_event(key, 0, 2, 0); }
         private void TextClear() { TextBox1.SelectAll(); TextBox1.SelectedText = ""; }
         private void Sleep(int ms) { System.Threading.Thread.Sleep(ms); Application.DoEvents(); }
@@ -702,13 +703,13 @@ namespace dz {
                                 }
                                 break;
                             case "win":
-                                KeyHold(Keys.LWin);
+                                Keybd_event(Keys.LWin, 0, 1, 0);
                                 break;
                             case "-win":
                                 KeyRelease(Keys.LWin);
                                 break;
                             case "shift":
-                                KeyHold(Keys.LShiftKey);
+                                Keybd_event(Keys.LShiftKey, 0, 0, 0);
                                 break;
                             case "-shift":
                                 KeyRelease(Keys.LShiftKey);
