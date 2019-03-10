@@ -856,7 +856,7 @@ namespace dz {
                                 Key(Keys.SelectMedia, false, 1);
                                 break;
                             case "xy":
-                                SetCursorPos(Convert.ToInt32(g_n.Substring(0, g_n.IndexOf("-"))), Convert.ToInt32(g_n.Substring(g_n.IndexOf("-") + 1)));
+                                SetCursorPos(Convert.ToInt32(g_n.Substring(0, g_n.IndexOf("|"))), Convert.ToInt32(g_n.Substring(g_n.IndexOf("|") + 1)));
                                 break;
                             case "rp": //return pointer
                             case "rm":
@@ -1124,7 +1124,7 @@ namespace dz {
             if (GetAsyncKeyState(Keys.Space)) { textBox2.AppendText(" "); }
 
             if (GetAsyncKeyState(Keys.Escape) && GetAsyncKeyState(Keys.X)) {
-                Clipboard.SetText(p_ + "xy:" + MousePosition.X + "-" + MousePosition.Y + _p);
+                Clipboard.SetText(p_ + "xy:" + MousePosition.X + "|" + MousePosition.Y + _p);
             }
 
             if (GetAsyncKeyState(Keys.Escape) && GetAsyncKeyState(Keys.H)) {
@@ -1297,7 +1297,7 @@ namespace dz {
                         }
                         Key(Keys.Back, false, 1);
                         textBox2.Clear();
-                        g_s = (":" + MousePosition.X + "-" + MousePosition.Y);
+                        g_s = (":" + MousePosition.X + "|" + MousePosition.Y);
                         PD();
                         Key(Keys.Right, false, 1);
                         return; }

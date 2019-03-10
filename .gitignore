@@ -1,2 +1,5 @@
 
 *.sln
+/obj/Debug
+/bin/Debug
+/.vs
