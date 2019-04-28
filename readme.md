@@ -1,12 +1,14 @@
-# DZ > Virtual Keyboard Assist (pt 4)
-## PD clone in c# 
-This is a manual clone of [dnaspider/PD](https://github.com/dnaspider/PD)
-<br>.vb -> .cs
+# DZ.exe
+Keyboard software
+
+## PD.vb to DZ.cs (vb -> c#) 
+[dnaspider/PD](https://github.com/dnaspider/PD)
+[Wiki](https://github.com/dnaspider/PD/wiki)
 
 ## Download
 [Release](https://github.com/dnaspider/DZ/releases "dz.exe")
 
 ## Source
-Visual Studio 2017
+Visual Studio
 
 Right click dz.csproj or dz -> Open with -> Visual Studio
